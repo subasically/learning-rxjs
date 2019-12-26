@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { of, from } from 'rxjs';
 
 const observer = {
   next: value => console.log('next', value),
@@ -6,10 +6,8 @@ const observer = {
   complete: () => console.log('complete!')
 }
 
-const observable = new Observable(subscriber => {
-  subscriber.next('Hello');
-  subscriber.next('World');
-  subscriber.complete();
-});
+const source$ = from(fetch(
+  'https://api.github.com/users/subasically'
+));
 
-observable.subscribe(observer)
+source$.subscribe(observer);
